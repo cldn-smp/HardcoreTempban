@@ -33,6 +33,8 @@ public final class HardcoreTempban extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinEventListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveEventListener(), this);
+
+        this.getCommand("hardcoretempban").setExecutor(new HardcoreTempbanCommand());
     }
 
     @Override
