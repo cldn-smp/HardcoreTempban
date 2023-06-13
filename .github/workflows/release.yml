@@ -1,5 +1,6 @@
 name: Build and Upload Jar
-
+permissions:
+  contents: write
 on:
   release:
     types:
@@ -26,6 +27,3 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: target/HardcoreTempban-*.jar
-          token: ${{ secrets.GITHUB_TOKEN }}
-          releaseTag: ${{ github.event.release.tag_name }}
-          overwrite: true
