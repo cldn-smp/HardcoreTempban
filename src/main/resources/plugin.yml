@@ -1,0 +1,8 @@
+name: HardcoreTempban
+version: '${project.version}'
+main: pro.cloudnode.smp.hardcoretempban.HardcoreTempban
+api-version: 1.20
+commands:
+  hardcoretempban:
+    description: HardcoreTempban
+    usage: /<command> <command> [...options]

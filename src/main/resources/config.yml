@@ -1,0 +1,180 @@
+# HardcoreTempban configuration
+
+# Ban duration (in seconds) ladder based on number of deaths.
+# Set to -1 to ban permanently.
+#
+# Example:
+# ladder:
+#   1: 60
+#   2: 300
+#   3: 600
+#
+# In this example: on first death, player will be banned for
+# 60 seconds. On second death, player will be banned for 300
+# seconds (5 minutes). On third death and above, player will
+# be banned for 600 seconds (10 minutes). To e.g. make the
+# ban permanent after the 4th death, you can set:
+#   4: -1
+ladder:
+  1: 3600
+  2: 10800
+  3: 43200
+
+ban:
+  # What should be done when a ban is to be issued?
+  # Possible values:
+  #   - ban:      The player is literally banned from the
+  #               server and cannot join until the ban
+  #               expires.
+  #   - jail:     The player is teleported to a configured
+  #               location (or moved to a different server if
+  #               BungeeCord is used). You can also prevent
+  #               the player from moving.
+  #   - command:  Run any command of your choosing.
+  type: ban
+
+  # `ban` type configuration
+  ban:
+    # The ban message to be displayed to the player.
+    # You can use the following placeholders:
+    #   - <player>:    The player's name.
+    #   - <death-msg>: The death message.
+    #   - <duration>:  Ban duration (e.g. "2h 30m 10s").
+    #   - <next-duration>: Ban duration of the next ban
+    #   - <time>:      Unban time (e.g. "Sun 11 Jun 2023 05:29").
+    #   - <deaths>:    Number of deaths (e.g. "3").
+    #   - <nth-death>: Ordinal number of the death (e.g. "3rd").
+    message: |
+      <red><bold>You have died!</bold></red>
+      <gray><italic><death-msg></italic></gray>
+      
+      <white>You can respawn in <duration> (<time>).</white>
+      <gray><italic>This is your <nth-death> death. Next death respawn cooldown will be <next-duration>.</italic></gray>
+
+  # `jail` type configuration
+  jail:
+    # Message to send to the player when they die.
+    # You can use the following placeholders:
+    #   - <player>:    The player's name.
+    #   - <death-msg>: The death message.
+    #   - <duration>:  Ban duration (e.g. "2h 30m 10s").
+    #   - <next-duration>: Ban duration of the next ban
+    #   - <time>:      Unban time (e.g. "Sun 11 Jun 2023 05:29").
+    #   - <deaths>:    Number of deaths (e.g. "3").
+    #   - <nth-death>: Ordinal number of the death (e.g. "3rd").
+    message: |
+      
+      <red><bold>You have died!</bold></red>
+      <gray><italic><death-msg></italic></gray>
+      
+      <white>You will respawn in <duration> (<time>).</white>
+      <gray><italic>This is your <nth-death> death. Next death respawn cooldown will be <next-duration>.</italic></gray>
+      
+
+    # Uncomment to send player to a different server.
+    # server: lobby
+
+    # Name of world to teleport player to
+    world: world
+
+    # Coordinates to teleport player to
+    x: 0
+    z: 0
+
+    # You can set a specific Y coordinate if you want. By default,
+    # the player will be teleported to the highest block at the
+    # specified X and Z coordinates.
+    # y: 64
+
+    # Set custom yaw (rotation around Y axis) and pitch (rotation
+    # around X axis) angles.
+    # yaw: 0
+    # pitch: 0
+
+    # If set to true, the player will not be able to move.
+    freeze: true
+
+    # If set to true, the player will not be able to move or look
+    # around.
+    freeze-look: true
+
+    # If set to true, the player will be invincible (god mode).
+    invincible: true
+
+    # If set to true, the player will not be seen by other players.
+    vanish: true
+
+    # If set to true, the player will not be able to chat.
+    mute: true
+
+    # If set to true, the player will not be able to use commands.
+    disable-commands: true
+
+    # If set to true, the player will not be able to interact with
+    # the world (e.g. break blocks, open chests, drop items, etc.).
+    disable-interaction: true
+  # `command` type configuration
+  command:
+    # The commands to be executed.
+    # You can use the following placeholders:
+    #   - <player>:    The player's name.
+    #   - <death-msg>: The death message.
+    #   - <duration>:  Ban duration (e.g. "2h 30m 10s").
+    #   - <next-duration>: Ban duration of the next ban
+    #   - <time>:      Unban time (e.g. "Sun 11 Jun 2023 05:29").
+    #   - <deaths>:    Number of deaths (e.g. "3").
+    #   - <nth-death>: Ordinal number of the death (e.g. "3rd").
+    # To kick the player and display the message configured in the
+    # ban message section, you can use:
+    #   `hardcoretempban kick <player> [death-msg]`
+    commands:
+      - "say <player> has died"
+      - "ban <player> <duration> <death-msg>"
+
+# Plugin messages configuration
+messages:
+  # Message prefix
+  # You can use this prefix in any other message using `<prefix>`.
+  prefix: "<red>[HardcoreTempban]</red>"
+
+  # Command usage message
+  # Available placeholders:
+  #   - <command>: The command name
+  #   - <args>:    The command arguments
+  usage: <yellow>(!) Usage:</yellow> <white><command> <args></white>
+
+  # No permission message
+  no-permission: <red>(!) You don't have permission to do that.</red>
+
+  # Plugin info message
+  # Available placeholders:
+  #   - <name>:         The plugin name
+  #   - <description>:  The plugin description
+  #   - <version>:      The plugin version
+  #   - <authors>:      The plugin authors
+  #   - <contributors>: The plugin contributors
+  #   - <website>:      The plugin website
+  plugin-info: <blue>(!) <name></blue> version <white><version></white>
+
+  # Plugin reloaded
+  plugin-reloaded: <blue>(!) <name></blue> reloaded
+
+  # Unknown command
+  # Available placeholders:
+  #   - <command>: The command name
+  unknown-command: <red>(!) Command <gray><command></gray> not found.</red>
+
+  # Player not found
+  # Available placeholders:
+  #   - <player>: The player name
+  player-not-found: <red>(!) Player <gray><player></gray> not found.</red>
+
+  # Player not dead
+  # Available placeholders:
+  #   - <player>: The player name
+  player-not-dead: <red>(!) Player <gray><player></gray> is not dead.</red>
+
+  # An error occurred
+  # Available placeholders:
+  #   - <error>: The error message
+  error: "<red>(!) An error occurred: <gray><error></gray></red>"
